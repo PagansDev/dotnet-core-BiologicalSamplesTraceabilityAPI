@@ -5,29 +5,18 @@ namespace BiologicalSamplesTraceabilityAPI.Models
 {
     public class Route 
     {
+        [Key]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string Name { get; set; }
-
-        [Required]
-        [MaxLength(3)]
-        public string Acronym { get; set; }
-
-        [MaxLength(30)]
-        public string? Type { get; set; }
-
-        [Required]
+        public string Name { get; set; } = String.Empty;
+        public string Acronym { get; set; } = String.Empty;
+        public string Type { get; set; } = String.Empty;
         public TimeOnly? Est_arrive { get; set; }
-
-        [Required]
         public bool isActive { get; set; }
-
-        [Required]
         public DateTime Created_at { get; set; }
-
         public DateTime? Updated_at { get; set; }
+
+        public ICollection<RouteGroup> RouteGroups { get; set; }
 
 
 

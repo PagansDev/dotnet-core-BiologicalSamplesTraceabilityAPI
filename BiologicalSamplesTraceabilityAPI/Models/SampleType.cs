@@ -6,16 +6,13 @@ namespace BiologicalSamplesTraceabilityAPI.Models
 {
     public class SampleType
     {
-       
+        [Key]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(50)]
         public String Name { get; set; } = String.Empty;
-        
-        [Required]
-        public DateTime Created_at { get; set; }
-        
+        public DateTime Created_at { get; set; }        
         public DateTime? Updated_at { get; set; }
+
+        public ICollection<SampleBatch> SampleBatches { get; set; }
     }
 }
