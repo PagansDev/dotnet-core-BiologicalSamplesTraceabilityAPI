@@ -17,6 +17,9 @@ namespace BiologicalSamplesTraceabilityAPI.Data
         public DbSet<Checkpoint> Checkpoints { get; set; }
         public DbSet<Routine> Routines { get; set; }
 
+        public DbSet<RouteType> RouteTypes { get; set; }
+             
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +44,11 @@ namespace BiologicalSamplesTraceabilityAPI.Data
                 .HasOne(rg => rg.Route)
                 .WithMany(r => r.RouteGroups)
                 .HasForeignKey(rg => rg.RouteId);
+
+            modelBuilder.Entity<Models.Route>()
+                .HasOne(r => r.RouteType)
+                .WithMany(rt => rt.Routes)
+                .HasForeignKey(r => r.RouteTypeId);
 
             modelBuilder.Entity<Traceability>()
                 .HasOne(t => t.BatchIdentifier)

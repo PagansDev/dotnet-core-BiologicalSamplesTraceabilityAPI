@@ -9,14 +9,14 @@ namespace BiologicalSamplesTraceabilityAPI.Models
         [Key]
         public int Id { get; set; }
 
-        public int? RouteGroupId { get; set; }
-        public string? Status { get; set; }
-        public string? Shift { get; set; }
-        public string? ClientType { get; set; }
-        public string? ConditioningType { get; set; }
+        public int RouteGroupId { get; set; }
+        public string Status { get; set; } = String.Empty;
+        public string Shift { get; set; } = String.Empty;
+        public string ClientType { get; set; } = String.Empty;
+        public string ConditioningType { get; set; } = String.Empty;
         public int SampleTypeId     { get; set; }
         public decimal Temperature { get; set; }
-        public decimal TraySize { get; set; }
+        public decimal TraySize { get; set; } 
         public string Driver { get; set; } = String.Empty;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
