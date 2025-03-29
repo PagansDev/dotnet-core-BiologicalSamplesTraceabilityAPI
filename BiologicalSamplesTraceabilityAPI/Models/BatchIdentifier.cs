@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BiologicalSamplesTraceabilityAPI.Models
 {
@@ -15,6 +16,8 @@ namespace BiologicalSamplesTraceabilityAPI.Models
         public DateTime UpdatedAt { get; set;}
 
         public SampleBatch SampleBatch { get; set; }
+
+        [JsonIgnore]
         public ICollection<Traceability> Traceabilities { get; set; }
 
     }
