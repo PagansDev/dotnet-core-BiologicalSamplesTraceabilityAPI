@@ -27,8 +27,15 @@ namespace BiologicalSamplesTraceabilityAPI.Services.RouteType
 
                 var routeType = await _context.RouteTypes.ToListAsync();
 
+                if(routeType == null)
+                {
+          
+                    response.Message = "No route types were found!";
+                    return response;
+                }
+
                 response.Data = routeType;
-                response.Message = "All route types was collected!";
+                response.Message = "All route types were collected!";
                 return response;
 
             }

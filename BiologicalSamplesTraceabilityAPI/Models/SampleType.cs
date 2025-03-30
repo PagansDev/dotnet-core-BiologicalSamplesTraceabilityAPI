@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BiologicalSamplesTraceabilityAPI.Models
@@ -10,9 +11,10 @@ namespace BiologicalSamplesTraceabilityAPI.Models
         public int Id { get; set; }
 
         public String Name { get; set; } = String.Empty;
-        public DateTime Created_at { get; set; }        
-        public DateTime? Updated_at { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;        
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
+        [JsonIgnore]
         public ICollection<SampleBatch> SampleBatches { get; set; }
     }
 }

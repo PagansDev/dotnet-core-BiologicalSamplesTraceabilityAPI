@@ -1,6 +1,10 @@
 using BiologicalSamplesTraceabilityAPI.Data;
 using BiologicalSamplesTraceabilityAPI.Models;
+using BiologicalSamplesTraceabilityAPI.Services.RouteGroup;
+using BiologicalSamplesTraceabilityAPI.Services.Routes;
 using BiologicalSamplesTraceabilityAPI.Services.RouteType;
+using BiologicalSamplesTraceabilityAPI.Services.SampleBatch;
+using BiologicalSamplesTraceabilityAPI.Services.SampleType;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +17,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRouteType, RouteTypeService>();
+builder.Services.AddScoped<IRoute, RouteService>();
+builder.Services.AddScoped<ISampleType, SampleTypeService>();
+builder.Services.AddScoped<ISampleBatch, SampleBatchService>();
+builder.Services.AddScoped<IRouteGroup, RouteGroupService>();
+
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

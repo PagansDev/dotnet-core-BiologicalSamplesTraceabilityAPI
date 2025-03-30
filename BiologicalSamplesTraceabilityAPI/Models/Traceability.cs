@@ -10,8 +10,9 @@ namespace BiologicalSamplesTraceabilityAPI.Models
         public int CheckpointId { get; set; }
         public DateTime Timestamp { get; set; }
         public int UserId { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
 
         public BatchIdentifier BatchIdentifier { get; set; }
         public Checkpoint Checkpoint { get; set; }

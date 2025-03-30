@@ -12,8 +12,8 @@ namespace BiologicalSamplesTraceabilityAPI.Models
         public string Code { get; set; } = String.Empty;
         public string Print { get; set; } = String.Empty;
         public int SampleBatchId { get; set; }
-        public DateTime CreatedAt { get; set;}
-        public DateTime UpdatedAt { get; set;}
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         public SampleBatch SampleBatch { get; set; }
 
