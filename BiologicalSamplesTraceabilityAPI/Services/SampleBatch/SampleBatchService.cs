@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using BiologicalSamplesTraceabilityAPI.Data;
-using BiologicalSamplesTraceabilityAPI.Models;
+﻿using Azure;
+using BiologicalSamplesTraceability.Api.Data;
+using BiologicalSamplesTraceability.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BiologicalSamplesTraceabilityAPI.Services.SampleBatch
+namespace BiologicalSamplesTraceability.API.Services.SampleBatch
 {
-    public class SampleBatchService : ISampleBatch
+    public class SampleBatchService : ISampleBatchInterface
     {
         private readonly AppDbContext _context;
 
@@ -14,27 +14,90 @@ namespace BiologicalSamplesTraceabilityAPI.Services.SampleBatch
             _context = context;
         }
 
-        public async Task<ResponseModel<List<Models.SampleBatch>>> GetAllSampleBatches()
+        public async Task<ResponseModel<List<Core.Entities.SampleBatch>>> GetAllAsync()
         {
-            ResponseModel<List<Models.SampleBatch>> response = new ResponseModel<List<Models.SampleBatch>>();
+            ResponseModel<List<Core.Entities.SampleBatch>> response = new ResponseModel<List<Core.Entities.SampleBatch>>();
 
             try
             {
+
                 var samplebatches = await _context.SampleBatches.ToListAsync();
-
-                if (samplebatches == null)
-                {
-                    response.Message = "No Sample Batches were found!";
-                    return response;
-                }
+              
                 response.Data = samplebatches;
-                response.Message = "";
+                response.Message = "All sample batches were found!";
                 return response;
-            }
 
+            }
             catch (Exception ex)
             {
+
                 response.Message = ex.Message;
+                response.Status = false;
+                return response;
+            
+            }
+
+        }
+
+        public async Task<ResponseModel<Core.Entities.SampleBatch>> GetByBatchIdentifierAsync(string BatchIdentifierCode)
+        {
+
+            ResponseModel<Core.Entities.SampleBatch> response = new ResponseModel<Core.Entities.SampleBatch>();
+
+            try
+            {
+                var batchIdentifier = await _context.BatchIdentifiers
+                    .Include(bi => bi.SampleBatch)
+                    .FirstOrDefaultAsync(bi => bi.Code == BatchIdentifierCode);   
+
+                if (batchIdentifier == null)
+                {
+                    response.Message = "No Sample Batch was found!";
+                    return response;
+                }
+
+                response.Data = batchIdentifier.SampleBatch;
+                response.Message = "The Sample Batch was found!";
+                return response;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Message = ex.Message;
+                response.Status = false;
+                return response;
+
+            }
+        }
+
+        public async Task<ResponseModel<Core.Entities.SampleBatch>> GetByIdAsync(long SampleBatchId)
+        {
+
+            ResponseModel<Core.Entities.SampleBatch> response = new ResponseModel<Core.Entities.SampleBatch>();
+
+            try
+            {
+                var sampleBatch = await _context.SampleBatches.FirstOrDefaultAsync(sb => sb.Id == SampleBatchId);
+
+                if (sampleBatch == null)
+                {
+                    response.Message = "No Sample Batch was found!";
+                    return response;
+                }
+
+                response.Data = sampleBatch;
+                response.Message = "The Sample Batch was found!";
+                return response;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Message = ex.Message;
+                response.Status = false;
                 return response;
 
             }
