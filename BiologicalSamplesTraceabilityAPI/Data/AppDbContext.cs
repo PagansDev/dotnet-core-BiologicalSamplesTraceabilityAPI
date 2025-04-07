@@ -1,7 +1,7 @@
-﻿using BiologicalSamplesTraceabilityAPI.Models;
+﻿using BiologicalSamplesTraceability.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BiologicalSamplesTraceabilityAPI.Data
+namespace BiologicalSamplesTraceability.Api.Data
 {
     public class AppDbContext : DbContext
     {
@@ -11,12 +11,11 @@ namespace BiologicalSamplesTraceabilityAPI.Data
         public DbSet<SampleBatch> SampleBatches { get; set; }
         public DbSet<BatchIdentifier> BatchIdentifiers { get; set; }
         public DbSet<SampleType> SampleTypes { get; set; }
-        public DbSet<Models.Route> Routes { get; set; }
+        public DbSet<BiologicalSamplesTraceability.Core.Entities.Route> Routes { get; set; }
         public DbSet<RouteGroup> RouteGroups { get; set; }
         public DbSet<Traceability> Traceabilities { get; set; }
         public DbSet<Checkpoint> Checkpoints { get; set; }
         public DbSet<Routine> Routines { get; set; }
-
         public DbSet<RouteType> RouteTypes { get; set; }
              
 
@@ -45,7 +44,7 @@ namespace BiologicalSamplesTraceabilityAPI.Data
                 .WithMany(r => r.RouteGroups)
                 .HasForeignKey(rg => rg.RouteId);
 
-            modelBuilder.Entity<Models.Route>()
+            modelBuilder.Entity<BiologicalSamplesTraceability.Core.Entities.Route>()
                 .HasOne(r => r.RouteType)
                 .WithMany(rt => rt.Routes)
                 .HasForeignKey(r => r.RouteTypeId);
